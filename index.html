@@ -5,8 +5,13 @@
   </head>
   <body>
     <a-scene>
-      <a-sky src="./panorama1.jpg"></a-sky>
-     <a-entity geometry="" position="0.73677 1.42069 2.60208"></a-entity>
+       <a-assets>
+          <a-asset-item id="crate-obj" src="./3D/golden_fish.obj"></a-asset-item>
+          <a-asset-item id="crate-mtl" src="./3D/golden_fish.mtl"></a-asset-item>
+        </a-assets>
+        <a-obj-model src="#crate-obj" mtl="#crate-mtl"></a-obj-model>
+        <a-sky src="./panorama1.jpg"></a-sky>
+       <a-entity geometry="" position="0.73677 1.42069 2.60208"></a-entity>
     </a-scene>
   </body>
 </html>
