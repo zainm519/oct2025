@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   </head>
   <body>
     <a-scene>
@@ -12,7 +13,7 @@
         </a-assets>
         <a-sky src="./panorama1.jpg"></a-sky>
         <a-obj-model src="#crate-obj" mtl="#crate-mtl"></a-obj-model>
-         <a-gltf-model src="#tree"></a-gltf-model>
+         <a-gltf-model src="#tree" animation-mixer></a-gltf-model>
     </a-scene>
   </body>
 </html>
