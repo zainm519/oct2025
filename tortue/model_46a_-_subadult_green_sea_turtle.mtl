@@ -1,0 +1,13 @@
+# Exported from 3D Builder
+
+newmtl eye.002_0
+Kd 1.000000 1.000000 1.000000
+map_Kd texture_3_167486454463440640.png
+
+newmtl subD0_0
+Kd 1.000000 1.000000 1.000000
+map_Kd texture_0_17562231701288840391.png
+
+newmtl eye.003_0
+Kd 1.000000 1.000000 1.000000
+map_Kd texture_2_7542131527022111237.png
