@@ -4,6 +4,47 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   </head>
+  <script>
+  AFRAME.registerComponent('bubble-emitter', {
+    init: function () {
+      this.el.addEventListener('click', () => {
+        for (let i = 0; i < 10; i++) {
+          this.spawnBubble();
+        }
+      });
+    },
+
+    spawnBubble: function () {
+      const bubble = document.createElement('a-sphere');
+      const pos = this.el.object3D.position;
+
+      // Position aléatoire proche de la statue
+      bubble.setAttribute('position', {
+        x: pos.x + (Math.random() - 0.5) * 0.5,
+        y: pos.y + 1,
+        z: pos.z + (Math.random() - 0.5) * 0.5
+      });
+
+      // Apparence des bulles
+      bubble.setAttribute('radius', 0.05 + Math.random() * 0.05);
+      bubble.setAttribute('color', '#aeeeee');
+      bubble.setAttribute('opacity', 0.6);
+      bubble.setAttribute('transparent', true);
+
+      // Animation vers le haut avec disparition
+      bubble.setAttribute('animation__move', {
+        property: 'position',
+        to: `${pos.x} ${pos.y + 3} ${pos.z}`,
+        dur: 3000 + Math.random() * 1000,
+        easing: 'easeOutQuad'
+      });
+
+      bubble.setAttribute('animation__fade', {
+        property: 'material.opacity',
+        to: 0,
+        dur: 3000 + Math.random() * 1000,
+        easing: 'linear'
+      });
   <body>
     <a-scene>
   </head>
