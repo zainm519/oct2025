@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
+    <meta charset="UTF-8" />
+    <title>Mon Monde A-Frame</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   </head>
   <body>
-    <a-scene>
-  </head>
-  <body>
-  </head>
-  <body>
-    <button id="soundButton" onclick="document.querySelector('#bruce').components.sound.playSound()">Activer le son</button> 
-    <a-assets>
-      <a-entity id="objet" sound="src: url(bruce.mp3); autoplay: false;"></a-entity>
+    <button id="soundButton">Activer le son</button>
 
-<script>
-  document.addEventListener('click', function () {
-    document.querySelector('#objet').components.sound.playSound();
-  });
-</script>    
-          <a-asset-item id="albert-obj" src="./tortue/model_46a_-_subadult_green_sea_turtle.obj" modelfixe=""></a-asset-item>
-          <a-asset-item id="albert-mtl" src="./tortue/model_46a_-_subadult_green_sea_turtle.mtl"></a-asset-item>
-          <a-asset-item id="bruce" src="./shark.glb"></a-asset-item>
-          <a-asset-item id="statue" src="./statue_of_emperor_trajan_tower_hill_london.glb"></a-asset-item>
-          <a-asset-item id="statue" src="./statue_of_emperor_trajan_tower_hill_london.glb"></a-asset-item>
-          <a-asset-item id="franklin" src="./tortue.gltf"></a-asset-item>
-        </a-assets>
-          <a-entity 
-          camera 
-          position="0 1.6 0" 
-          look-controls 
-          limit-camera-rotation>
-          </a-entity>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="albert-obj" src="./tortue/model_46a_-_subadult_green_sea_turtle.obj"></a-asset-item>
+        <a-asset-item id="albert-mtl" src="./tortue/model_46a_-_subadult_green_sea_turtle.mtl"></a-asset-item>
+        <a-asset-item id="bruce-model" src="./shark.glb"></a-asset-item>
+        <a-asset-item id="statue-model" src="./statue_of_emperor_trajan_tower_hill_london.glb"></a-asset-item>
+        <a-asset-item id="franklin" src="./tortue.gltf"></a-asset-item>
+        <audio id="bruce-sound" src="bruce.mp3"></audio>
+      </a-assets>
+      <a-entity camera position="0 1.6 0" look-controls></a-entity>
       <a-sky src="./panorama1.jpg"></a-sky>
-        <a-obj-model src="#albert-obj" mtl="#albert-mtl"></a-obj-model>
-        <a-obj-model src="#albert" mtl="#albert-mtl"></a-obj-model>
-    <a-entity id="nage" rotation="0 0 0" animation="property: rotation; to: 0 359 0; dur: 20000; loop: true; easing: linear">
-<a-entity id="bruce" gltf-model="./shark.glb" position="-10.5391 1.84493 0" rotation="0 0 -6.621100280531793" animation-mixer="" sound="autoplay: true; loop: true" .="" bruce.mp3";="" volume:="" .5"=""></a-entity>
-    
-</a-entity>
-      <a-gltf-model src="#statue" gltf-model="./statue_of_emperor_trajan_tower_hill_london.glb" position="0 -2.14543 -10.31513"></a-gltf-model>
+      <a-obj-model src="#albert-obj" mtl="#albert-mtl" position="0 0 -3"></a-obj-model>
+      <a-entity id="nage" rotation="0 0 0" animation="property: rotation; to: 0 359 0; dur: 20000; loop: true; easing: linear">
+        <a-entity id="bruce" 
+                  gltf-model="#bruce-model" 
+                  position="-10.5 1.8 0" 
+                  rotation="0 0 -6.6" 
+                  animation-mixer
+                  sound="src: #bruce-sound; autoplay: false; loop: true; volume: 0.5;">
+        </a-entity>
+      </a-entity>
+      <a-gltf-model src="#statue-model" id="statue" position="0 -2.14 -10.31"></a-gltf-model>
     </a-scene>
+    <script>
+      document.querySelector('#soundButton').addEventListener('click', function () {
+        const bruce = document.querySelector('#bruce');
+        if (bruce && bruce.components.sound) {
+          bruce.components.sound.playSound();
+        }
+      });
+    </script>
   </body>
 </html>
