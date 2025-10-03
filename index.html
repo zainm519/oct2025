@@ -28,11 +28,6 @@
     </a-scene>
   </body>
 </html>
-<a-entity id="bruce-orbit" rotation="0 0 0"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear">
-  <a-gltf-model src="#bruce" gltf-model="./shark.glb" position="0 0 -10" scale="1 1 1"></a-gltf-model>
-</a-entity>
-
 <a-entity id="horizon" rotation="0 0 0" animation="property: rotation; to: 0 359 0; dur: 20000; loop: true; easing: linear">
-      <a-entity id="bruce" gltf-model="./shark.glb" scale="1.000 1.000 1.000" position="-10.5391 1.84493 0" rotation="0 -90.00021045914971 -23.8843186478235" animation-mixer sound="loop: true; autoplay: true; src: ./bruce.mp3; volume: .5" ></a-entity>  
+      <a-entity id="bruce" gltf-model="./shark.glb" scale="1.000 1.000 1.000" position="-10.5391 1.84493 0" rotation="0 -90.00021045914971 -23.8843186478235" animation="dur: 20000; easing: linear; loop: true; property: rotation; to: 0 359 0" animation-mixer sound="loop: true; autoplay: true; src: ./bruce.mp3; volume: .5" ></a-entity>  
            </a-entity>    
