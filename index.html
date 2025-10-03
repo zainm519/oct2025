@@ -30,7 +30,11 @@
                   sound="src: #bruce-sound; autoplay: false; loop: true; volume: 0.5;">
         </a-entity>
       </a-entity>
-      <a-gltf-model src="#statue-model" id="statue" position="0 -2.14 -10.31"></a-gltf-model>
+      <a-gltf-model id="statue"
+              src="#statue-model"
+              position="0 -2.14 -10.31"
+              bubble-emitter>
+</a-gltf-model>
     </a-scene>
     <script>
       document.querySelector('#soundButton').addEventListener('click', function () {
@@ -40,5 +44,58 @@
         }
       });
     </script>
+    <script>
+  AFRAME.registerComponent('bubble-emitter', {
+    init: function () {
+      this.el.addEventListener('click', () => {
+        for (let i = 0; i < 10; i++) {
+          this.spawnBubble();
+        }
+      });
+    },
+
+    spawnBubble: function () {
+      const bubble = document.createElement('a-sphere');
+      const pos = this.el.object3D.position;
+
+      // Position aléatoire proche de la statue
+      bubble.setAttribute('position', {
+        x: pos.x + (Math.random() - 0.5) * 0.5,
+        y: pos.y + 1,
+        z: pos.z + (Math.random() - 0.5) * 0.5
+      });
+
+      // Apparence des bulles
+      bubble.setAttribute('radius', 0.05 + Math.random() * 0.05);
+      bubble.setAttribute('color', '#aeeeee');
+      bubble.setAttribute('opacity', 0.6);
+      bubble.setAttribute('transparent', true);
+
+      // Animation vers le haut
+      bubble.setAttribute('animation__move', {
+        property: 'position',
+        to: `${bubble.getAttribute('position').x} ${pos.y + 3} ${bubble.getAttribute('position').z}`,
+        dur: 3000 + Math.random() * 1000,
+        easing: 'easeOutQuad'
+      });
+
+      // Animation de disparition
+      bubble.setAttribute('animation__fade', {
+        property: 'material.opacity',
+        to: 0,
+        dur: 3000 + Math.random() * 1000,
+        easing: 'linear'
+      });
+
+      // Supprimer la bulle après 4 secondes
+      setTimeout(() => {
+        bubble.remove();
+      }, 4000);
+
+      // Ajouter à la scène
+      document.querySelector('a-scene').appendChild(bubble);
+    }
+  });
+</script>
   </body>
 </html>
