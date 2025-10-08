@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <title>Mon Monde Sous-Marin</title>
 
+    <!-- Librairies A-Frame -->
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   </head>
 
   <body>
     <!-- Bouton pour le son -->
-    <button id="soundButton">Activer le son</button>
+    <button id="soundButton" style="position: absolute; z-index: 10; top: 10px; left: 10px;">
+      Activer le son
+    </button>
 
     <a-scene>
       <!-- Assets -->
@@ -23,7 +26,7 @@
         <audio id="bruce-sound" src="bruce.mp3"></audio>
       </a-assets>
 
-      <!-- Caméra avec curseur pour détecter les clics -->
+      <!-- Caméra avec curseur -->
       <a-entity camera position="0 1.6 0" look-controls>
         <a-entity cursor="rayOrigin: mouse"></a-entity>
       </a-entity>
@@ -31,11 +34,12 @@
       <!-- Ciel -->
       <a-sky src="./panorama1.jpg"></a-sky>
 
-      <!-- Tortues -->
+      <!-- Tortue -->
       <a-obj-model src="#albert-obj" mtl="#albert-mtl" position="0 0 -3"></a-obj-model>
 
       <!-- Requin animé avec son -->
-      <a-entity id="nage" rotation="0 0 0" animation="property: rotation; to: 0 359 0; dur: 20000; loop: true; easing: linear">
+      <a-entity id="nage" rotation="0 0 0"
+                animation="property: rotation; to: 0 359 0; dur: 20000; loop: true; easing: linear">
         <a-entity id="bruce"
                   gltf-model="#bruce"
                   position="-10.5 1.8 0"
@@ -51,12 +55,13 @@
                     position="0 -2.14543 -10.31513"
                     bubble-emitter>
       </a-gltf-model>
-      <a-entity light="" position="2.51922 0 -0.17956"></a-entity>
+
+      <a-entity light position="2.51922 0 -0.17956"></a-entity>
     </a-scene>
 
     <!-- Scripts JS -->
     <script>
-      // Activation du son via le bouton
+      // 🔊 Activation du son via le bouton
       document.getElementById('soundButton').addEventListener('click', function () {
         const bruce = document.querySelector('#bruce');
         if (bruce && bruce.components.sound) {
@@ -64,7 +69,7 @@
         }
       });
 
-      // Composant personnalisé pour générer des bulles
+      // 🫧 Composant personnalisé pour générer des bulles
       AFRAME.registerComponent('bubble-emitter', {
         init: function () {
           this.el.addEventListener('click', () => {
@@ -107,6 +112,43 @@
           }, 4000);
 
           document.querySelector('a-scene').appendChild(bubble);
+        }
+      });
+
+      // 🌊 Easter Egg : Code secret "OCEAN"
+      let code = "";
+      document.addEventListener('keydown', (e) => {
+        code += e.key.toUpperCase();
+        if (code.endsWith("OCEAN")) {
+          const text = document.createElement('a-text');
+          text.setAttribute('value', '🌊 Bienvenue dans le vrai monde sous-marin !');
+          text.setAttribute('position', '0 2 -3');
+          text.setAttribute('color', 'aqua');
+          text.setAttribute('align', 'center');
+          text.setAttribute('look-at', '[camera]');
+          document.querySelector('a-scene').appendChild(text);
+
+          // Petit effet de bulles pour fêter le secret
+          for (let i = 0; i < 20; i++) {
+            const bubble = document.createElement('a-sphere');
+            bubble.setAttribute('position', {
+              x: (Math.random() - 0.5) * 2,
+              y: 1 + Math.random(),
+              z: -3 + (Math.random() - 0.5) * 2
+            });
+            bubble.setAttribute('radius', 0.05 + Math.random() * 0.05);
+            bubble.setAttribute('color', '#aeeeee');
+            bubble.setAttribute('opacity', 0.7);
+            bubble.setAttribute('transparent', true);
+            bubble.setAttribute('animation', {
+              property: 'position',
+              to: `${bubble.getAttribute('position').x} ${bubble.getAttribute('position').y + 2} ${bubble.getAttribute('position').z}`,
+              dur: 3000 + Math.random() * 1000,
+              easing: 'easeOutQuad'
+            });
+            document.querySelector('a-scene').appendChild(bubble);
+            setTimeout(() => bubble.remove(), 4000);
+          }
         }
       });
     </script>
