@@ -10,10 +10,7 @@
   </head>
 
   <body>
-    <!-- Bouton pour le son -->
-    <button id="soundButton" style="position: absolute; z-index: 10; top: 10px; left: 10px;">
-      Activer le son
-    </button>
+  
 
     <a-scene>
       <!-- Assets -->
@@ -59,98 +56,5 @@
       <a-entity light position="2.51922 0 -0.17956"></a-entity>
     </a-scene>
 
-    <!-- Scripts JS -->
-    <script>
-      // 🔊 Activation du son via le bouton
-      document.getElementById('soundButton').addEventListener('click', function () {
-        const bruce = document.querySelector('#bruce');
-        if (bruce && bruce.components.sound) {
-          bruce.components.sound.playSound();
-        }
-      });
-
-      // 🫧 Composant personnalisé pour générer des bulles
-      AFRAME.registerComponent('bubble-emitter', {
-        init: function () {
-          this.el.addEventListener('click', () => {
-            for (let i = 0; i < 10; i++) {
-              this.spawnBubble();
-            }
-          });
-        },
-
-        spawnBubble: function () {
-          const bubble = document.createElement('a-sphere');
-          const pos = this.el.object3D.position;
-
-          const x = pos.x + (Math.random() - 0.5) * 0.5;
-          const y = pos.y + 1;
-          const z = pos.z + (Math.random() - 0.5) * 0.5;
-
-          bubble.setAttribute('position', { x, y, z });
-          bubble.setAttribute('radius', 0.05 + Math.random() * 0.05);
-          bubble.setAttribute('color', '#aeeeee');
-          bubble.setAttribute('opacity', 0.6);
-          bubble.setAttribute('transparent', true);
-
-          bubble.setAttribute('animation__move', {
-            property: 'position',
-            to: `${x} ${y + 3} ${z}`,
-            dur: 3000 + Math.random() * 1000,
-            easing: 'easeOutQuad'
-          });
-
-          bubble.setAttribute('animation__fade', {
-            property: 'material.opacity',
-            to: 0,
-            dur: 3000 + Math.random() * 1000,
-            easing: 'linear'
-          });
-
-          setTimeout(() => {
-            bubble.remove();
-          }, 4000);
-
-          document.querySelector('a-scene').appendChild(bubble);
-        }
-      });
-
-      // 🌊 Easter Egg : Code secret "OCEAN"
-      let code = "";
-      document.addEventListener('keydown', (e) => {
-        code += e.key.toUpperCase();
-        if (code.endsWith("OCEAN")) {
-          const text = document.createElement('a-text');
-          text.setAttribute('value', 'Bien ?');
-          text.setAttribute('position', '0 2 -3');
-          text.setAttribute('color', 'aqua');
-          text.setAttribute('align', 'center');
-          text.setAttribute('look-at', '[camera]');
-          document.querySelector('a-scene').appendChild(text);
-
-          // Petit effet de bulles pour fêter le secret
-          for (let i = 0; i < 20; i++) {
-            const bubble = document.createElement('a-sphere');
-            bubble.setAttribute('position', {
-              x: (Math.random() - 0.5) * 2,
-              y: 1 + Math.random(),
-              z: -3 + (Math.random() - 0.5) * 2
-            });
-            bubble.setAttribute('radius', 0.05 + Math.random() * 0.05);
-            bubble.setAttribute('color', '#aeeeee');
-            bubble.setAttribute('opacity', 0.7);
-            bubble.setAttribute('transparent', true);
-            bubble.setAttribute('animation', {
-              property: 'position',
-              to: `${bubble.getAttribute('position').x} ${bubble.getAttribute('position').y + 2} ${bubble.getAttribute('position').z}`,
-              dur: 3000 + Math.random() * 1000,
-              easing: 'easeOutQuad'
-            });
-            document.querySelector('a-scene').appendChild(bubble);
-            setTimeout(() => bubble.remove(), 4000);
-          }
-        }
-      });
-    </script>
   </body>
 </html>
